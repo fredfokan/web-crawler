@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Web Crawler /[•]\</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a single dark Wikipedia-style column for the spider to walk on */
+:root{
+  --bg:#0d0e12; --panel:#16181f; --fg:#d9dbe3; --muted:#8a8fa3; --link:#7fa8ff; --pink:#ff2e88; --green:#39ff88;
+  --serif:"Crimson Pro",Georgia,"Times New Roman",serif; --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.55 var(--serif);padding-inline:16px;padding-block:24px 64px}
+main{max-width:46rem;margin:0 auto;display:grid;gap:28px}
+h1{font:600 clamp(1.6rem,6vw,2.4rem)/1.1 var(--mono);margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1 span{color:var(--pink)}
+h2{font:600 .78rem/1 var(--mono);text-transform:uppercase;letter-spacing:.14em;color:var(--muted);margin:0 0 12px;border-bottom:1px solid #2a2d38;padding-bottom:8px}
+p{margin:0}
+a{color:var(--link)}
+.lead{color:var(--muted);font-size:1.05rem}
+.controls{display:flex;flex-wrap:wrap;gap:10px}
+button{font:600 .9rem var(--mono);padding:12px 16px;border-radius:4px;border:1px solid var(--pink);background:transparent;color:var(--pink);cursor:pointer}
+button.primary{background:var(--pink);color:#0d0e12}
+button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.install{background:var(--panel);border:1px solid #2a2d38;padding:18px;border-radius:6px;display:grid;gap:14px}
+.install ol{margin:0;padding-left:1.3em;display:grid;gap:8px;font-size:1rem}
+code,kbd{font-family:var(--mono);font-size:.85em;color:var(--green)}
+textarea{width:100%;box-sizing:border-box;height:5.5em;font:.72rem/1.4 var(--mono);background:#0a0b0e;color:var(--muted);border:1px solid #2a2d38;border-radius:4px;padding:8px;resize:vertical}
+#status{font:.85rem var(--mono);color:var(--green);min-height:1.2em}
+.refs{margin:0;padding-left:2.2em;display:grid;gap:10px;font-size:1rem}
+.refs li::marker{color:var(--muted);font-family:var(--mono);font-size:.8em}
+.refs cite{font-style:normal}
+.refs code{color:var(--link)}
+</style>
+</head>
+<body>
+
+<main>
+  <header style="display:grid;gap:12px">
+    <h1>Web crawler <span>/[•]\</span></h1>
+    <p class="lead">A wireframe spider that walks across the links of any web page, grabs them and tears pieces off. Inspired by a video by @rybinfx.</p>
+    <div class="controls">
+      <button class="primary" id="demo" type="button">Release the spider here</button>
+    </div>
+  </header>
+
+  <section class="install">
+    <h2>Install as a bookmarklet</h2>
+    <div class="controls"><button id="copy" type="button">Copy the bookmarklet</button></div>
+    <div id="status" role="status"></div>
+    <ol>
+      <li>Tap <b>Copy the bookmarklet</b>.</li>
+      <li>Bookmark any page (Chrome Android: menu <kbd>⋮</kbd> then the star).</li>
+      <li>Edit that bookmark: name it <code>spider</code> and paste the code as its URL.</li>
+      <li>On any page (Wikipedia works great), type <code>spider</code> in the address bar and pick the bookmark from the suggestions. On desktop, just click the bookmark. Run it again, or press Esc, to stop.</li>
+    </ol>
+    <textarea id="code" readonly aria-label="Bookmarklet code">__BOOKMARKLET__</textarea>
+  </section>
+
+  <section>
+    <h2>References (playground)</h2>
+    <ol class="refs">
+      <li>Bilger, Burkhard (5 March 2007). <a href="#refs">"Spider Woman"</a>. <cite>The New Yorker</cite>. pp. 66–73.</li>
+      <li>Bristowe, W. S. (1976). <a href="#refs"><cite>The World of Spiders</cite></a>. Taplinger Publishing Company. <a href="#refs">ISBN 978-0-8008-8598-4</a>. <a href="#refs">OCLC 256272177</a>.</li>
+      <li>Crompton, John (1950). <cite>The Life of the Spider</cite>. New York: Mentor. <a href="#refs">OCLC 1979220</a>.</li>
+      <li>Hillyard, Paul (1994). <a href="#refs"><cite>The Book of the Spider: From Arachnophobia to the Love of Spiders</cite></a>. New York: Random House. <a href="#refs">ISBN 978-0-679-40881-9</a>.</li>
+      <li>Kaston, B. J.; Kaston, Elizabeth (1953). <a href="#refs">How to Know the Spiders: Pictured-Keys for Determining the More Common Spiders</a> (1st ed.). Dubuque, Iowa: W.C. Brown Company. <a href="#refs">OCLC 628203833</a>.</li>
+      <li>Main, Barbara York (1976). <cite>Spiders</cite>. Sydney: Collins. <a href="#refs">ISBN 978-0-00-211443-1</a>. <a href="#refs">OCLC 123151744</a>.</li>
+      <li>Wise, David A. (1993). <cite>Spiders in Ecological Webs</cite>. Cambridge University Press. <a href="#refs">ISBN 978-0-521-32547-9</a>. <a href="#refs">OCLC 25833874</a>.</li>
+      <li>Hinman, M.B.; Jones J.A.; Lewis, R. W. (2000). <a href="#refs">"Synthetic spider silk: a modular fiber"</a>. <cite>Trends in Biotechnology</cite>. <b>18</b> (9): 374–79. <a href="#refs"><code>doi:10.1016/S0167-7799(00)01481-5</code></a>. <a href="#refs">PMID 10942961</a>.</li>
+      <li>Menassa, R.; Zhu, H.; Karatzas, C.N.; Lazaris, A.; Richman, A.; Brandle, J. (2004). <a href="#refs">"Spider dragline silk proteins in transgenic tobacco leaves"</a>. <cite>Plant Biotechnology Journal</cite>. 2 (5): 431–38. <a href="#refs"><code>Bibcode:2004PBioJ...2..431M</code></a>. <a href="#refs">PMID 17168889</a>.</li>
+      <li>Fritscher, Lisa (3 June 2009). <a href="#refs">"Spider Fears or Arachnophobia"</a>. <cite>Phobias</cite>. About.com. Archived from <a href="#refs">the original</a> on 19 June 2009.</li>
+      <li>Friedenberg, J. &amp; Silverman, G. (2005). <a href="#refs"><cite>Cognitive Science: An Introduction to the Study of Mind</cite></a>. Sage. pp. 244–45. <a href="#refs">ISBN 978-1-4129-2568-6</a>.</li>
+      <li>Davey, G.C.L. (1994). <a href="#refs">"The 'Disgusting' Spider: The Role of Disease and Illness in the Perpetuation of Fear of Spiders"</a>. <cite>Society and Animals</cite>. 2 (1): 17–25. <a href="#refs"><code>doi:10.1163/156853094X00045</code></a>.</li>
+      <li>Costa-Neto, E.M.; Grabowski, N.T. (27 November 2020). <a href="#refs">"Edible arachnids and myriapods worldwide"</a>. <cite>Journal of Insects as Food and Feed</cite>. 7 (3). <a href="#refs"><code>doi:10.3920/JIFF2020.0046</code></a>.</li>
+      <li>Selden, P.A.; ChungKun Shih; Dong Ren (2011). <a href="#refs">"A golden orb-weaver spider (Araneae: Nephilidae: Nephila) from the Middle Jurassic of China"</a>. <cite>Biology Letters</cite>. 7 (5): 775–78. <a href="#refs"><code>doi:10.1098/rsbl.2011.0228</code></a>. <a href="#refs">PMC 3169059</a>.</li>
+      <li>Lozano-Fernandez, Jesus; Tanner, Alastair R.; Puttick, Mark N.; Vinther, Jakob (2020). <a href="#refs">"A Cambrian–Ordovician Terrestrialization of Arachnids"</a>. <cite>Frontiers in Genetics</cite>. 11: 182. <a href="#refs"><code>doi:10.3389/fgene.2020.00182</code></a>. <a href="#refs">PMC 7078165</a>.</li>
+      <li>Shultz, J.W. (2007). <a href="#refs">"A phylogenetic analysis of the arachnid orders based on morphological characters"</a>. <cite>Zoological Journal of the Linnean Society</cite>. 150 (2): 221–65. <a href="#refs"><code>doi:10.1111/j.1096-3642.2007.00284.x</code></a>.</li>
+    </ol>
+  </section>
+</main>
+
+<script>
+const SPIDER = () => { __SPIDER__ };
+const demo = document.getElementById('demo');
+const sync = () => { demo.textContent = window.__webCrawler ? "Stop the spider" : "Release the spider here"; };
+demo.addEventListener('click', () => { SPIDER(); sync(); });
+document.querySelectorAll('a[href="#refs"]').forEach(a => a.addEventListener('click', e => e.preventDefault()));
+const ta = document.getElementById('code'), status = document.getElementById('status');
+document.getElementById('copy').addEventListener('click', () => {
+  const fallback = () => { ta.focus(); ta.select(); status.textContent = 'Code selected: long-press and choose Copy.'; };
+  if (!navigator.clipboard) return fallback();
+  navigator.clipboard.writeText(ta.value).then(() => { status.textContent = 'Copied. Paste it as the bookmark URL.'; }, fallback);
+});
+setTimeout(() => { if (!window.__webCrawler) { SPIDER(); sync(); } }, 600);
+</script>
+</body>
+</html>
