@@ -90,7 +90,7 @@
 
   const grabbed = new Map(); // element -> highlight end time
   const grab = (el, col) => {
-    if (!el) return;
+    if (!el || !el.isConnected) return;
     el.style.setProperty('--wc', col);
     el.classList.add('__wc-grab');
     grabbed.set(el, performance.now() + rnd(1500, 4000));
@@ -118,7 +118,7 @@
   // ---------- torn fragments ----------
   const frags = new Set();
   const tear = el => {
-    if (!el || frags.size > 7 || el.classList.contains('__wc-torn')) return;
+    if (!el || !el.isConnected || frags.size > 7 || el.classList.contains('__wc-torn')) return;
     const r = el.getBoundingClientRect();
     const txt = (el.textContent || '').trim().replace(/\s+/g, ' ').slice(0, 60);
     if (!txt || r.width < 6 || r.bottom < 0 || r.top > H) return;
@@ -280,7 +280,10 @@
       cancelAnimationFrame(raf);
       removeEventListener('resize', resize);
       removeEventListener('keydown', onKey);
-      document.querySelectorAll('.__wc-grab,.__wc-torn').forEach(el => el.classList.remove('__wc-grab', '__wc-torn'));
+      document.querySelectorAll('.__wc-grab,.__wc-torn').forEach(el => {
+        el.classList.remove('__wc-grab', '__wc-torn');
+        el.style.removeProperty('--wc');
+      });
       cv.remove(); fx.remove(); css.remove();
       delete window.__webCrawler;
     }
